@@ -125,7 +125,7 @@ This project demonstrates full-stack development using Django, HTML, CSS, and Ja
 
 ## ⚙ Installation
 
-```bash
+bash
 # Clone the repository
 git clone https://github.com/your-username/fur-ever-home.git
 
