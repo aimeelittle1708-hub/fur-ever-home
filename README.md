@@ -121,6 +121,73 @@ This project demonstrates full-stack development using Django, HTML, CSS, and Ja
 - user (ForeignKey)
 - pet (ForeignKey)
 
+---
 
+## ⚙ Installation
 
+```bash
+# Clone the repository
+git clone https://github.com/your-username/fur-ever-home.git
+
+# Navigate into the project directory
+cd fur-ever-home
+
+# Create a virtual environment
+python -m venv venv
+
+# Activate the virtual environment
+# Windows
+venv\Scripts\activate
+
+# Mac/Linux
+source venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Apply migrations
+python manage.py migrate
+
+# Run the development server
 python manage.py runserver
+
+Visit the application at:
+
+http://127.0.0.1:8000/
+▶ Usage
+
+Register for an account or log in.
+
+Browse available pets.
+
+View pet details.
+
+Submit an adoption request.
+
+Admin users can manage listings and review applications.
+
+🚀 Future Improvements
+
+Messaging system between adopters and shelters
+
+Email notifications for application updates
+
+Advanced filtering and search functionality
+
+Image upload enhancements
+
+Deployment to a live hosting platform
+
+👥 Contributors
+
+Aimee – Backend Development
+
+[Team Member Name] – Frontend Development
+
+[Team Member Name] – JavaScript & UI
+
+[Team Member Name] – Testing & Documentation
+
+🏆 Project Purpose
+
+Fur Ever Home was created to celebrate the completion of a 16-week full-stack development course and to demonstrate our ability to design and build a fully functional web application using modern web technologies.
