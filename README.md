@@ -140,7 +140,8 @@ The Fur Ever Home colour scheme was designed to communicate trust, warmth, and a
 ### Favourite
 - user (ForeignKey)
 - pet (ForeignKey)
-<img width="1035" height="654" alt="image" src="https://github.com/user-attachments/assets/a20c91c1-d138-4909-ad01-a4d0a023da71" />
+<img width="1062" height="630" alt="image" src="https://github.com/user-attachments/assets/676c1d00-d26e-4c1f-94a1-222d6fcb9d4e" />
+
 
 
 
