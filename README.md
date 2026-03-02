@@ -180,13 +180,10 @@ Deployment to a live hosting platform
 
 👥 Contributors
 
-Aimee – Backend Development
-
-[Team Member Name] – Frontend Development
-
-[Team Member Name] – JavaScript & UI
-
-[Team Member Name] – Testing & Documentation
+Aimee 
+Cal
+Josh
+Wouter
 
 🏆 Project Purpose
 
