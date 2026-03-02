@@ -11,6 +11,7 @@ Fur Ever Home was created as part of a 16-week full-stack development course to 
 - [Overview](#overview)
 - [Features](#features)
 - [User Stories](#user-stories)
+- [Wire Frames](#wireframes)
 - [Tech Stack](#tech-stack)
 - [Database Models](#database-models)
 - [Installation](#installation)
@@ -72,6 +73,19 @@ This project demonstrates full-stack development using Django, HTML, CSS, and Ja
 - As a user, I want to save pets to my favourites so that I can view them later.
 - As an admin, I want to manage pet listings so that information stays accurate.
 - As an admin, I want to review adoption requests so that I can approve suitable applicants.
+
+---
+## Wireframes
+<img width="2414" height="1362" alt="image" src="https://github.com/user-attachments/assets/745dfd04-a12e-4977-8c57-e19c370956f4" />
+
+
+<img width="2416" height="1362" alt="image" src="https://github.com/user-attachments/assets/c21cae74-de09-4d38-96da-f9f5eb9c6eca" />
+
+
+<img width="826" height="2558" alt="image" src="https://github.com/user-attachments/assets/8858a13a-517b-40eb-8ee5-dc7ea23ac7d4" />
+
+
+<img width="1608" height="1924" alt="image" src="https://github.com/user-attachments/assets/37e08385-99d7-40e2-a6ad-bd3bc2163ac7" />
 
 ---
 
