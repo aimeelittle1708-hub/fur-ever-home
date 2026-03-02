@@ -150,35 +150,36 @@ The Fur Ever Home colour scheme was designed to communicate trust, warmth, and a
 ## ⚙ Installation
 
 bash
-# Clone the repository
+#### Clone the repository
 git clone https://github.com/your-username/fur-ever-home.git
 
-# Navigate into the project directory
+#### Navigate into the project directory
 cd fur-ever-home
 
-# Create a virtual environment
+#### Create a virtual environment
 python -m venv venv
 
-# Activate the virtual environment
-# Windows
+#### Activate the virtual environment
+##### Windows
 venv\Scripts\activate
 
-# Mac/Linux
+##### Mac/Linux
 source venv/bin/activate
 
-# Install dependencies
+##### Install dependencies
 pip install -r requirements.txt
 
-# Apply migrations
+##### Apply migrations
 python manage.py migrate
 
-# Run the development server
+##### Run the development server
 python manage.py runserver
 
 Visit the application at:
 
 http://127.0.0.1:8000/
-▶ Usage
+
+## ▶ Usage
 
 Register for an account or log in.
 
@@ -190,7 +191,7 @@ Submit an adoption request.
 
 Admin users can manage listings and review applications.
 
-🚀 Future Improvements
+## 🚀 Future Improvements
 
 Messaging system between adopters and shelters
 
@@ -202,13 +203,13 @@ Image upload enhancements
 
 Deployment to a live hosting platform
 
-👥 Contributors
+## 👥 Contributors
 
 Aimee 
 Cal
 Josh
 Wouter
 
-🏆 Project Purpose
+## 🏆 Project Purpose
 
 Fur Ever Home was created to celebrate the completion of a 16-week full-stack development course and to demonstrate our ability to design and build a fully functional web application using modern web technologies.
