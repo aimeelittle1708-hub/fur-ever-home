@@ -12,6 +12,7 @@ Fur Ever Home was created as part of a 16-week full-stack development course to 
 - [Features](#features)
 - [User Stories](#user-stories)
 - [Wire Frames](#wireframes)
+- [Design](#design)
 - [Tech Stack](#tech-stack)
 - [Database Models](#database-models)
 - [Installation](#installation)
@@ -88,6 +89,11 @@ This project demonstrates full-stack development using Django, HTML, CSS, and Ja
 <img width="1608" height="1924" alt="image" src="https://github.com/user-attachments/assets/37e08385-99d7-40e2-a6ad-bd3bc2163ac7" />
 
 ---
+## Design
+### Colour Pallet
+The Fur Ever Home colour scheme was designed to communicate trust, warmth, and approachability, reflecting the emotional nature of pet adoption. Calming teal tones guide key interactions and establish reliability, while warm neutral colours create a welcoming, home-like feel that aligns with the platform’s purpose. A vibrant orange accent is used strategically for call-to-action elements such as “Adopt Now” buttons, drawing attention to important decisions and encouraging positive user engagement. Accent colours are applied thoughtfully to highlight key actions and system feedback, improving usability and ensuring important features stand out clearly within the interface.
+<img width="1035" height="777" alt="image" src="https://github.com/user-attachments/assets/d944a4b8-e542-4bcb-85b0-96992a730218" />
+
 
 ## 🛠 Tech Stack
 
