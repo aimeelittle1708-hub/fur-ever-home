@@ -134,6 +134,9 @@ This project demonstrates full-stack development using Django, HTML, CSS, and Ja
 ### Favourite
 - user (ForeignKey)
 - pet (ForeignKey)
+<img width="1035" height="654" alt="image" src="https://github.com/user-attachments/assets/a20c91c1-d138-4909-ad01-a4d0a023da71" />
+
+
 
 ---
 
