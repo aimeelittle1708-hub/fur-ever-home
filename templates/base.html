@@ -44,29 +44,35 @@
             <div class="collapse navbar-collapse" id="nav">
                 <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
                     <li class="nav-item">
-                        <a class="nav-link" href=""> Home </a>
+                        <a class="nav-link" href="{% url 'home' %}"> Home </a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href=""> Pets </a>
+                        <a class="nav-link" href="{% url 'view_pets' %}"> Pets </a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href=""> Requests </a>
+                        <a class="nav-link" href="{% url 'request_pet_start' %}">
+                            Adopt a Pet
+                        </a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href=""> About </a>
+                        <a class="nav-link" href="{% url 'request_pets' %}"> My Requests </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'about' %}"> About </a>
                     </li>
 
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href=""> Success Stories </a>
+                        <a class="nav-link" href="{% url 'success_stories' %}"> Success Stories </a>
                     </li>
 
                     <li class="nav-item">
                         <span class="nav-link" aria-label="">
-                            Hi, {{ user.name }}
+                            Hi, {{ user.username }}
                         </span>
                     </li>
 
@@ -148,15 +154,16 @@
                                 >
                             </li>
                             <li>
-                                <a href="" class="footer-link">View Pets</a>
+                                <a href="{% url 'view_pets' %}" class="footer-link">View Pets</a>
                             </li>
-                            <li><a href="" class="footer-link">Requests</a></li>
+                            <li><a href="{% url 'request_pet_start' %}" class="footer-link">Adopt a Pet</a></li>
+                            <li><a href="{% url 'request_pets' %}" class="footer-link">My Requests</a></li>
                             <li>
-                                <a href="" class="footer-link"
+                                <a href="{% url 'success_stories' %}" class="footer-link"
                                     >Success Stories</a
                                 >
                             </li>
-                            <li><a href="" class="footer-link">About</a></li>
+                            <li><a href="{% url 'about' %}" class="footer-link">About</a></li>
                         </ul>
                     </div>
 

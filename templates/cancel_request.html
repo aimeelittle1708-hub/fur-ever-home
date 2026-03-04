@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h1 class="h3 mb-4">Cancel Adoption Request</h1>
+                    
+                    <div class="alert alert-warning" role="alert">
+                        <h5 class="alert-heading">⚠️ Are you sure?</h5>
+                        <p>You are about to cancel your adoption request for <strong>{{ adoption_request.pet.name }}</strong>.</p>
+                        <hr>
+                        <p class="mb-0">This action cannot be undone. You will need to submit a new request if you change your mind.</p>
+                    </div>
+                    
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-muted">Request Details</h6>
+                            <p class="card-text">
+                                <strong>Pet:</strong> {{ adoption_request.pet.name }}<br>
+                                <strong>Submitted:</strong> {{ adoption_request.request_date|date:"d M Y, H:i" }}<br>
+                                <strong>Status:</strong> 
+                                {% if adoption_request.status == 1 %}
+                                <span class="badge bg-warning text-dark">Pending</span>
+                                {% endif %}
+                            </p>
+                            {% if adoption_request.message %}
+                            <p class="card-text"><small class="text-muted">{{ adoption_request.message|truncatewords:20 }}</small></p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-danger">Yes, Cancel Request</button>
+                            <a href="{% url 'request_pets' %}" class="btn btn-outline-secondary">No, Keep Request</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

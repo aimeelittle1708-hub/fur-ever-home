@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <h1 class="display-5 fw-bold mb-4">🐾 Request to Adopt {{ pet.name }}</h1>
+            
+            <div class="card shadow-sm mb-4">
+                <div class="row g-0">
+                    {% if pet.photo %}
+                    <div class="col-md-4">
+                        <img src="{{ pet.photo.url }}" class="img-fluid rounded-start h-100" style="object-fit: cover;" alt="{{ pet.name }}">
+                    </div>
+                    {% endif %}
+                    <div class="col-md-{{ pet.photo|yesno:'8,12' }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ pet.name }}</h5>
+                            <p class="card-text">
+                                <span class="badge bg-secondary">{{ pet.get_species_display }}</span>
+                                {% if pet.breed %}<span class="badge bg-light text-dark">{{ pet.breed }}</span>{% endif %}
+                                <span class="badge bg-info">{{ pet.age }} year{{ pet.age|pluralize }}</span>
+                            </p>
+                            {% if pet.description %}
+                            <p class="card-text">{{ pet.description|truncatewords:30 }}</p>
+                            {% endif %}
+                            {% if pet.location %}
+                            <p class="card-text"><small class="text-muted">📍 {{ pet.location }}</small></p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Tell us about yourself</h5>
+                    <p class="text-muted mb-4">Please share information about why you'd like to adopt {{ pet.name }} and your home environment.</p>
+                    
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label for="{{ form.message.id_for_label }}" class="form-label">Your Message</label>
+                            {{ form.message }}
+                            {% if form.message.errors %}
+                            <div class="invalid-feedback d-block">
+                                {{ form.message.errors }}
+                            </div>
+                            {% endif %}
+                            <div class="form-text">Optional: Tell us about your experience with pets, your home setup, and why you think {{ pet.name }} would be a good match for you.</div>
+                        </div>
+                        
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary">Submit Request</button>
+                            <a href="{% url 'pet_detail' pet.id %}" class="btn btn-outline-secondary">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
