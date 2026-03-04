@@ -1,0 +1,35 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="container py-4">
+    <a href="{% url 'view_pets' %}" class="btn btn-outline-secondary mb-3"
+        >← Back to pets</a
+    >
+
+    <div class="card shadow-sm">
+        {% if pet.photo %}
+        <img
+            src="{{ pet.photo.url }}"
+            class="card-img-top"
+            alt="{{ pet.name }}"
+        />
+        {% endif %}
+        <div class="card-body">
+            <h1 class="h3 mb-3">{{ pet.name }}</h1>
+            <p class="text-muted mb-3">
+                {{ pet.get_species_display }}{% if pet.breed %} • {{ pet.breed
+                }}{% endif %}
+            </p>
+            <p class="mb-2"><strong>Age:</strong> {{ pet.age }}</p>
+            <p class="mb-2">
+                <strong>Gender:</strong> {{ pet.get_gender_display }}
+            </p>
+            {% if pet.location %}
+            <p class="mb-2"><strong>Location:</strong> {{ pet.location }}</p>
+            {% endif %} {% if pet.description %}
+            <p class="mb-0">{{ pet.description }}</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

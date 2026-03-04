@@ -1,0 +1,53 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="container py-4">
+    <h1 class="mb-4">Pets Available for Adoption</h1>
+
+    {% if pets %}
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for pet in pets %}
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                {% if pet.photo %}
+                <img
+                    src="{{ pet.photo.url }}"
+                    class="card-img-top"
+                    alt="{{ pet.name }}"
+                />
+                {% endif %}
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title mb-1">{{ pet.name }}</h5>
+                    <p class="text-muted small mb-3">
+                        {{ pet.get_species_display }}{% if pet.breed %} • {{
+                        pet.breed }}{% endif %}
+                    </p>
+                    <p class="card-text mb-2">
+                        Age: {{ pet.age }} | Gender: {{ pet.get_gender_display
+                        }}
+                    </p>
+                    {% if pet.location %}
+                    <p class="card-text mb-2">Location: {{ pet.location }}</p>
+                    {% endif %} {% if pet.description %}
+                    <p class="card-text text-muted">
+                        {{ pet.description|truncatechars:140 }}
+                    </p>
+                    {% endif %}
+                    <a
+                        href="{% url 'pet_detail' pet.id %}"
+                        class="btn btn-success mt-auto"
+                    >
+                        View details
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="alert alert-info" role="alert">
+        No pets are currently available for adoption.
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}
