@@ -15,7 +15,9 @@ from .forms import (
 
 
 def home(request):
-    return render(request, 'home.html')
+    from .models import Pet
+    featured_pets = Pet.objects.filter(featured=True, authorised=True, status=Pet.Status.AVAILABLE).order_by('-date_added')[:3]
+    return render(request, 'home.html', {'featured_pets': featured_pets})
 
 
 def view_pets(request):
