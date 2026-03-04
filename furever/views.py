@@ -443,7 +443,3 @@ def cancel_request(request, request_id):
 
 def success_stories(request):
     return render(request, 'success_stories.html')
-
-
-def about(request):
-    return render(request, 'about.html')
