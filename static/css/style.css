@@ -1,3 +1,50 @@
+.btn {
+    border-radius: 2rem !important;
+}
+main.container {
+    margin-bottom: 2.5rem;
+}
+.hero {
+    margin-bottom: 2.5rem;
+}
+/* Remove duplicate :root and merge variables below */
+.card-bottom {
+    background: var(--primary-light) !important;
+}
+
+.card-bottom .btn,
+.card-bottom .btn-success,
+.card-bottom .btn-primary,
+.card-bottom .btn-outline-success {
+    background: #fff;
+    color: var(--primary);
+    border: none;
+    font-weight: 700;
+    border-radius: 1rem;
+    box-shadow: 0 1px 4px rgba(42, 157, 143, 0.08);
+    transition: background 0.2s, color 0.2s;
+}
+.card-bottom .btn:hover,
+.card-bottom .btn-success:hover,
+.card-bottom .btn-primary:hover,
+.card-bottom .btn-outline-success:hover {
+    background: var(--accent);
+    color: #fff;
+}
+.card-section-h2 {
+    text-align: center;
+    color: var(--accent);
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 2px 8px rgba(231, 111, 81, 0.12);
+}
+.card.card-feature {
+    border: 3px solid var(--accent);
+    box-shadow: 0 4px 16px rgba(231, 111, 81, 0.12), 0 2px 8px rgba(42, 157, 143, 0.08);
+    background: var(--surface);
+}
 /* === Footer Styling === */
 .site-footer {
     background: var(--surface);
@@ -47,6 +94,9 @@
     background: var(--surface) !important;
     border-bottom: 2px solid var(--primary);
     box-shadow: 0 2px 8px rgba(42, 157, 143, 0.08);
+    min-height: 72px;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
 }
 .navbar-brand {
     color: var(--primary) !important;
@@ -58,7 +108,8 @@
     color: var(--text) !important;
     font-weight: 600;
     border-radius: 0.75rem;
-    padding: 0.5rem 1rem;
+    padding: 0.75rem 1.25rem;
+    font-size: 1.15rem;
     transition: background 0.2s, color 0.2s;
 }
 .navbar-nav .nav-link:hover,
@@ -116,6 +167,7 @@ input[name="email"] {
     --surface: #F4E1C1;
     --text: #333333;
     --success: #6BBF59;
+    --primary-light: #e3faf7;
 }
 
 body {
@@ -125,7 +177,7 @@ body {
     margin: 0;
     padding: 0;
 }
-
+    --primary-light: #e3faf7;
 h1, h2, h3, h4, h5, h6 {
     color: var(--primary);
     font-weight: 700;
@@ -196,6 +248,8 @@ a:hover {
     background: linear-gradient(90deg, var(--primary) 60%, var(--surface) 100%);
     color: #fff;
     border-radius: 0 0 2rem 2rem;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
 }
 .hero h1 {
     color: #fff;

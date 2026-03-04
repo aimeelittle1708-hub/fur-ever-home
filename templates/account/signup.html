@@ -1,32 +1,23 @@
 {% extends "base.html" %} {% load i18n %} {% block head_title %}{% trans
 "Signup" %}{% endblock %} {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 mt-3 offset-md-2">
-            <h2>{% trans "Sign Up" %}</h2>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-8 mt-3 offset-md-2">
-            <form
-                class="signup"
-                id="signup_form"
-                method="post"
-                action="{% url 'account_signup' %}"
-            >
-                {% csrf_token %} {{ form.as_p }} {% if redirect_field_value %}
-                <input
-                    type="hidden"
-                    name="{{ redirect_field_name }}"
-                    value="{{ redirect_field_value }}"
-                />
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+    <div class="col-md-6">
+        <div class="card card-feature shadow-lg p-4">
+            <h2 class="card-section-h2 mb-3">{% trans "Sign Up" %}</h2>
+            <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    {{ form.as_p }}
+                </div>
+                {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                 {% endif %}
-                <button class="btn custom-btn right" type="submit">
+                <button class="btn btn-primary w-100 mt-2" type="submit">
                     {% trans "Sign Up" %}
                 </button>
             </form>
-            <br />
-            <p>
+            <p class="mt-4 text-center">
                 Already have an account?
                 <a class="link" href="{{ login_url }}">Log in</a>
             </p>
