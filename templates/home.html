@@ -19,8 +19,16 @@
             </a>
 
             <a
+                class="btn btn-success ms-lg-2"
+                href="{% url 'request_pet_start' %}"
+                aria-label="Go straight to adopting a pet"
+            >
+                Adopt a Pet
+            </a>
+
+            <a
                 class="btn btn-outline-light btn-lg"
-                href=""
+                href="{% url 'success_stories' %}"
                 aria-label="View success stories of pets finding their forever homes"
             >
                 See our success stories
@@ -110,11 +118,11 @@
             </div>
             <div class="card-footer bg-white border-0">
                 <a
-                    href=""
+                    href="{% url 'request_pet_start' %}"
                     class="btn btn-sm btn-outline-success"
                     aria-label="Learn more about Fur Ever Homes and our mission to give pets and their humans a place to connect"
                 >
-                    Learn more
+                    Request a Pet
                 </a>
             </div>
         </div>

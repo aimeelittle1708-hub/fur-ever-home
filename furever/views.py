@@ -1,7 +1,11 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Pet
-from .forms import PetForm
+from django.contrib import messages
+from django.urls import reverse
+from django.db import IntegrityError
+from django.views.decorators.csrf import ensure_csrf_cookie
+from .models import Pet, AdoptionRequest
+from .forms import PetForm, AdoptionRequestForm, RequestPetForm
 
 
 def home(request):
@@ -16,6 +20,48 @@ def view_pets(request):
     return render(request, 'view_pets.html', {'pets': pets})
 
 
+def request_pet_start(request):
+    target_url = reverse('request_pet_form')
+    if request.user.is_authenticated:
+        return redirect(target_url)
+
+    login_url = reverse('account_login')
+    return redirect(f'{login_url}?next={target_url}')
+
+
+@login_required
+@ensure_csrf_cookie
+def request_pet_form(request):
+    if request.method == 'POST':
+        form = RequestPetForm(request.POST, user=request.user)
+        if form.is_valid():
+            adoption_request = form.save(commit=False)
+            adoption_request.user = request.user
+
+            try:
+                adoption_request.save()
+            except IntegrityError:
+                messages.warning(
+                    request,
+                    'You already submitted a request for this pet.',
+                )
+                return redirect('pet_detail', pet_id=adoption_request.pet.id)
+
+            messages.success(
+                request,
+                'Your adoption request was submitted successfully!',
+            )
+            return redirect('request_pets')
+    else:
+        form = RequestPetForm(user=request.user)
+
+    if not form.fields['pet'].queryset.exists():
+        messages.info(request, 'No pets are currently available to request.')
+        return redirect('view_pets')
+
+    return render(request, 'request_pet_form.html', {'form': form})
+
+
 def pet_detail(request, pet_id):
     pet = get_object_or_404(Pet, pk=pet_id, status=Pet.Status.AVAILABLE)
     
@@ -26,7 +72,19 @@ def pet_detail(request, pet_id):
         from django.http import Http404
         raise Http404("No Pet matches the given query.")
     
-    return render(request, 'pet_detail.html', {'pet': pet})
+    # Check if user has already requested this pet
+    has_requested = False
+    if request.user.is_authenticated:
+        has_requested = AdoptionRequest.objects.filter(
+            user=request.user,
+            pet=pet
+        ).exists()
+    
+    return render(request, 'pet_detail.html', {
+        'pet': pet,
+        'has_requested': has_requested,
+        'is_owner': is_owner,
+    })
 
 
 @login_required
@@ -37,14 +95,69 @@ def create_pet(request):
             pet = form.save(commit=False)
             pet.user = request.user
             pet.save()
+            messages.success(request, 'Pet listing created successfully! It will be visible once approved by an admin.')
             return redirect('pet_detail', pet_id=pet.id)
     else:
         form = PetForm()
     return render(request, 'create_pet.html', {'form': form})
 
 
+@login_required
+@ensure_csrf_cookie
+def request_adoption(request, pet_id):
+    pet = get_object_or_404(Pet, pk=pet_id, status=Pet.Status.AVAILABLE, authorised=True)
+    
+    # Check if user is trying to adopt their own pet
+    if pet.user == request.user:
+        messages.error(request, 'You cannot request to adopt your own pet.')
+        return redirect('pet_detail', pet_id=pet.id)
+    
+    # Check if user has already requested this pet
+    if AdoptionRequest.objects.filter(user=request.user, pet=pet).exists():
+        messages.warning(request, 'You have already submitted an adoption request for this pet.')
+        return redirect('pet_detail', pet_id=pet.id)
+    
+    if request.method == 'POST':
+        form = AdoptionRequestForm(request.POST)
+        if form.is_valid():
+            adoption_request = form.save(commit=False)
+            adoption_request.user = request.user
+            adoption_request.pet = pet
+            adoption_request.save()
+            messages.success(request, f'Your adoption request for {pet.name} has been submitted successfully!')
+            return redirect('request_pets')
+    else:
+        form = AdoptionRequestForm()
+    
+    return render(request, 'request_adoption.html', {'form': form, 'pet': pet})
+
+
+@login_required
 def request_pets(request):
-    return render(request, 'request_pets.html')
+    # Show user's adoption requests
+    adoption_requests = AdoptionRequest.objects.filter(
+        user=request.user
+    ).select_related('pet').order_by('-request_date')
+    
+    return render(request, 'request_pets.html', {'adoption_requests': adoption_requests})
+
+
+@login_required
+def cancel_request(request, request_id):
+    adoption_request = get_object_or_404(
+        AdoptionRequest,
+        pk=request_id,
+        user=request.user
+    )
+    
+    if request.method == 'POST':
+        pet_name = adoption_request.pet.name
+        adoption_request.status = AdoptionRequest.Status.CANCELLED
+        adoption_request.save()
+        messages.success(request, f'Your adoption request for {pet_name} has been cancelled.')
+        return redirect('request_pets')
+    
+    return render(request, 'cancel_request.html', {'adoption_request': adoption_request})
 
 
 def success_stories(request):

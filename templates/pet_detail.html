@@ -83,9 +83,26 @@
                             </h6>
                             <p class="card-text">{{ pet.description }}</p>
                             {% endif %}
-                            <a href="{% url 'request_pets' %}" class="btn btn-success ms-auto mt-3">
-                                Request Pet
-                            </a>
+                            
+                            <div class="mt-auto pt-3">
+                                {% if user.is_authenticated %}
+                                    {% if is_owner %}
+                                        <p class="text-muted mb-0"><small>This is your pet listing</small></p>
+                                    {% elif has_requested %}
+                                        <div class="alert alert-info mb-0" role="alert">
+                                            <small>✓ You have already requested to adopt this pet. <a href="{% url 'request_pets' %}">View your requests</a></small>
+                                        </div>
+                                    {% else %}
+                                        <a href="{% url 'request_adoption' pet.id %}" class="btn btn-success w-100">
+                                            Request to Adopt {{ pet.name }}
+                                        </a>
+                                    {% endif %}
+                                {% else %}
+                                    <a href="{% url 'account_login' %}" class="btn btn-primary w-100">
+                                        Login to Request Adoption
+                                    </a>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                 </div>
