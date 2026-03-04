@@ -63,11 +63,7 @@ class Pet(models.Model):
 
     date_added = models.DateTimeField(auto_now_add=True)
 
-    # Photo in ERD: cloudinary; fallback to ImageField if cloudinary not installed
-    if CloudinaryField:
-        photo = CloudinaryField("image", blank=True, null=True)
-    else:
-        photo = models.ImageField(upload_to="pets/", blank=True, null=True)
+    photo = CloudinaryField("image", blank=True, null=True)
 
     location = models.CharField(max_length=255, blank=True)
     status = models.IntegerField(choices=Status.choices, default=Status.AVAILABLE)

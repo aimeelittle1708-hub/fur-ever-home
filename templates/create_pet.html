@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="mb-4">Put a Pet Up for Adoption</h1>
+
+            <form method="post" enctype="multipart/form-data" class="card p-4 shadow-sm">
+                {% csrf_token %}
+                {{ form|crispy }}
+                
+                <div class="d-flex gap-2 mt-4">
+                    <button type="submit" class="btn btn-success">
+                        Post Pet
+                    </button>
+                    <a href="{% url 'view_pets' %}" class="btn btn-outline-secondary">
+                        Cancel
+                    </a>
+                </div>
+            </form>
+
+            <div class="alert alert-info mt-4" role="alert">
+                <strong>Note:</strong> Your pet will be submitted for review by our team before appearing on the adoption list. You'll be notified once it's approved.
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

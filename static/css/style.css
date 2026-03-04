@@ -1,0 +1,12 @@
+/* LOGIN & SIGNUP */
+/* Hide "Forgot your password" on the login page */
+.helptext {
+    display: none;
+}
+
+/* Hide email field on signup page */
+#div_id_email,
+label[for="id_email"],
+input[name="email"] {
+    display: none;
+}

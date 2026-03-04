@@ -1,33 +1,95 @@
 {% extends "base.html" %} {% block content %}
 
 <div class="container py-4">
-    <a href="{% url 'view_pets' %}" class="btn btn-outline-secondary mb-3"
-        >← Back to pets</a
-    >
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-10">
+            <a
+                href="{% url 'view_pets' %}"
+                class="btn btn-outline-secondary mb-3"
+                >← Back to pets</a
+            >
 
-    <div class="card shadow-sm">
-        {% if pet.photo %}
-        <img
-            src="{{ pet.photo.url }}"
-            class="card-img-top"
-            alt="{{ pet.name }}"
-        />
-        {% endif %}
-        <div class="card-body">
-            <h1 class="h3 mb-3">{{ pet.name }}</h1>
-            <p class="text-muted mb-3">
-                {{ pet.get_species_display }}{% if pet.breed %} • {{ pet.breed
-                }}{% endif %}
-            </p>
-            <p class="mb-2"><strong>Age:</strong> {{ pet.age }}</p>
-            <p class="mb-2">
-                <strong>Gender:</strong> {{ pet.get_gender_display }}
-            </p>
-            {% if pet.location %}
-            <p class="mb-2"><strong>Location:</strong> {{ pet.location }}</p>
-            {% endif %} {% if pet.description %}
-            <p class="mb-0">{{ pet.description }}</p>
+            {% if not pet.authorised and user == pet.user %}
+            <div class="alert alert-warning" role="alert">
+                <strong>Pending Approval:</strong> Your pet is waiting for admin
+                authorization before it appears in the public listings.
+            </div>
             {% endif %}
+
+            <h1 class="h2 mb-4">{{ pet.name }}</h1>
+
+            <div class="row g-4">
+                <div class="col-md-5">
+                    {% if pet.photo %}
+                    <img
+                        src="{{ pet.photo.url }}"
+                        class="img-fluid rounded shadow-sm"
+                        alt="{{ pet.name }}"
+                    />
+                    {% else %}
+                    <div
+                        class="bg-light rounded d-flex align-items-center justify-content-center"
+                        style="height: 300px"
+                    >
+                        <span class="text-muted">No photo available</span>
+                    </div>
+                    {% endif %}
+
+                    <div class="card shadow-sm mt-3">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3">Owner Details</h5>
+                            <p class="card-text mb-2">
+                                <strong>Username:</strong> {{ pet.user.username}}
+                            </p>
+                            {% if pet.user.first_name or pet.user.last_name %}
+                            <p class="card-text mb-2">
+                                <strong>Name:</strong> {{ pet.user.first_name }}
+                                {{ pet.user.last_name }}
+                            </p>
+                            {% endif %}
+                            {% if pet.location %}
+                            <p class="card-text mb-3">
+                                <strong>Location:</strong> {{ pet.location }}
+                            </p>
+                            {% endif %} 
+                            <p class="card-text mb-3">
+                                <strong>Contact details:</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title mb-2">Pet Details</h5>
+                            <p class="card-text mb-2">
+                                <strong>Species:</strong> {{ pet.get_species_display }} 
+                            </p>
+                            {% if pet.breed %}
+                            <p class="card-text mb-2">
+                                <strong>Breed:</strong> {{ pet.breed }}
+                            </p>
+                            {% endif %}
+                            <p class="card-text mb-2">
+                                <strong>Age:</strong> {{ pet.age }} year{{ pet.age|pluralize }}
+                            </p>
+                            <p class="card-text mb-2">
+                                <strong>Gender:</strong> {{ pet.get_gender_display }}
+                            </p>
+                            {% if pet.description %}
+                            <hr />
+                            <h6 class="card-subtitle mb-2">
+                                About {{ pet.name }}
+                            </h6>
+                            <p class="card-text">{{ pet.description }}</p>
+                            {% endif %}
+                            <a href="{% url 'request_pets' %}" class="btn btn-success ms-auto mt-3">
+                                Request Pet
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
