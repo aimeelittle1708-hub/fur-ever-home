@@ -87,15 +87,51 @@
                             <div class="mt-auto pt-3">
                                 {% if user.is_authenticated %}
                                     {% if is_owner %}
-                                        <p class="text-muted mb-0"><small>This is your pet listing</small></p>
-                                    {% elif has_requested %}
+                                        <p class="text-muted mb-2"><small>This is your pet listing</small></p>
+                                        <div class="d-flex gap-2">
+                                            <a href="{% url 'edit_pet' pet.id %}" class="btn btn-outline-secondary btn-sm">
+                                                Edit Listing
+                                            </a>
+                                            <a href="{% url 'delete_pet' pet.id %}" class="btn btn-outline-danger btn-sm">
+                                                Delete Listing
+                                            </a>
+                                        </div>
+                                    {% else %}
+                                        <div class="card bg-light border-0 mb-3">
+                                            <div class="card-body py-3">
+                                                <h6 class="card-subtitle mb-2">Saved Pet</h6>
+                                                {% if saved_pet %}
+                                                    <p class="small text-muted mb-2">This pet is in your saved list.</p>
+                                                    {% if saved_pet.notes %}
+                                                    <p class="mb-2"><small><strong>Note:</strong> {{ saved_pet.notes }}</small></p>
+                                                    {% endif %}
+                                                    <div class="d-flex gap-2">
+                                                        <a href="{% url 'edit_saved_pet' saved_pet.id %}" class="btn btn-sm btn-outline-secondary">Edit Note</a>
+                                                        <a href="{% url 'delete_saved_pet' saved_pet.id %}" class="btn btn-sm btn-outline-danger">Remove</a>
+                                                        <a href="{% url 'saved_pets' %}" class="btn btn-sm btn-outline-primary">View Saved Pets</a>
+                                                    </div>
+                                                {% else %}
+                                                    <form method="post" action="{% url 'save_pet' pet.id %}">
+                                                        {% csrf_token %}
+                                                        <div class="mb-2">
+                                                            <label class="form-label" for="id_notes">Optional note</label>
+                                                            <input type="text" name="notes" id="id_notes" class="form-control" placeholder="Why you saved this pet" />
+                                                        </div>
+                                                        <button type="submit" class="btn btn-sm btn-outline-primary">Save Pet</button>
+                                                    </form>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+
+                                        {% if has_requested %}
                                         <div class="alert alert-info mb-0" role="alert">
                                             <small>✓ You have already requested to adopt this pet. <a href="{% url 'request_pets' %}">View your requests</a></small>
                                         </div>
-                                    {% else %}
+                                        {% else %}
                                         <a href="{% url 'request_adoption' pet.id %}" class="btn btn-success w-100">
                                             Request to Adopt {{ pet.name }}
                                         </a>
+                                        {% endif %}
                                     {% endif %}
                                 {% else %}
                                     <a href="{% url 'account_login' %}" class="btn btn-primary w-100">
@@ -105,6 +141,54 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <div class="card shadow-sm mt-4">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">Comments</h5>
+
+                    {% if user.is_authenticated %}
+                    <form method="post" action="{% url 'add_comment' pet.id %}" class="mb-4">
+                        {% csrf_token %}
+                        <div class="mb-2">
+                            {{ comment_form.content }}
+                        </div>
+                        <button type="submit" class="btn btn-sm btn-success">
+                            Add Comment
+                        </button>
+                    </form>
+                    {% else %}
+                    <p class="text-muted mb-3">
+                        <a href="{% url 'account_login' %}">Login</a> to add a comment.
+                    </p>
+                    {% endif %}
+
+                    {% if comments %}
+                    <div class="d-flex flex-column gap-3">
+                        {% for comment in comments %}
+                        <div class="border rounded p-3">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <div>
+                                    <strong>{{ comment.user.username }}</strong>
+                                    <small class="text-muted ms-2">
+                                        {{ comment.created_on|date:"d M Y H:i" }}
+                                    </small>
+                                </div>
+                                {% if user == comment.user %}
+                                <div class="d-flex gap-2">
+                                    <a href="{% url 'edit_comment' comment.id %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                                    <a href="{% url 'delete_comment' comment.id %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                                </div>
+                                {% endif %}
+                            </div>
+                            <p class="mb-0">{{ comment.content }}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <p class="text-muted mb-0">No comments yet. Be the first to comment.</p>
+                    {% endif %}
                 </div>
             </div>
         </div>

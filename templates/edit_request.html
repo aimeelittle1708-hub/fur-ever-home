@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <h1 class="h3 mb-4">Edit Adoption Request</h1>
+
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <p class="mb-1"><strong>Pet:</strong> {{ adoption_request.pet.name }}</p>
+                    <p class="mb-0 text-muted">Only pending requests can be edited.</p>
+                </div>
+            </div>
+
+            <form method="post" class="card shadow-sm p-4">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="{{ form.message.id_for_label }}" class="form-label">Your Message</label>
+                    {{ form.message }}
+                    {% if form.message.errors %}
+                    <div class="invalid-feedback d-block">{{ form.message.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-success">Save</button>
+                    <a href="{% url 'request_pets' %}" class="btn btn-outline-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

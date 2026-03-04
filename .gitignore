@@ -1,5 +1,6 @@
 .venv/
 env.py
+db_backups/
 __pycache__
 *.py[cod]
 db.sqlite3

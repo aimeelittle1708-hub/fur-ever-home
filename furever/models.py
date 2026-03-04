@@ -139,3 +139,29 @@ class Favourite(models.Model):
 
     def __str__(self) -> str:
         return f"{self.user} ♥ {self.pet}"
+
+
+class Comment(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="comments",
+    )
+    pet = models.ForeignKey(
+        Pet,
+        on_delete=models.CASCADE,
+        related_name="comments",
+    )
+    content = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["-created_on"]
+        indexes = [
+            models.Index(fields=["pet", "created_on"]),
+            models.Index(fields=["user"]),
+        ]
+
+    def __str__(self) -> str:
+        return f"Comment by {self.user} on {self.pet}"

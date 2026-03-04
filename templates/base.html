@@ -51,6 +51,15 @@
                         <a class="nav-link" href="{% url 'view_pets' %}"> Pets </a>
                     </li>
 
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'my_pets' %}"> My Pets </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'saved_pets' %}"> Saved Pets </a>
+                    </li>
+                    {% endif %}
+
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'request_pet_start' %}">
                             Adopt a Pet
@@ -156,6 +165,10 @@
                             <li>
                                 <a href="{% url 'view_pets' %}" class="footer-link">View Pets</a>
                             </li>
+                            {% if user.is_authenticated %}
+                            <li><a href="{% url 'my_pets' %}" class="footer-link">My Pets</a></li>
+                            <li><a href="{% url 'saved_pets' %}" class="footer-link">Saved Pets</a></li>
+                            {% endif %}
                             <li><a href="{% url 'request_pet_start' %}" class="footer-link">Adopt a Pet</a></li>
                             <li><a href="{% url 'request_pets' %}" class="footer-link">My Requests</a></li>
                             <li>

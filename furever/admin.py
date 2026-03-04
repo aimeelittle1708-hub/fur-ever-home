@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django_summernote.admin import SummernoteModelAdmin
-from .models import Pet, UserProfile, AdoptionRequest, Favourite
+from .models import Pet, UserProfile, AdoptionRequest, Favourite, Comment
 
 
 @admin.register(Pet)
@@ -52,3 +52,11 @@ class FavouriteAdmin(admin.ModelAdmin):
     search_fields = ['user__username', 'pet__name', 'notes']
     list_filter = ('save_date',)
     ordering = ('-save_date',)
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('user', 'pet', 'created_on', 'updated_on')
+    search_fields = ['user__username', 'pet__name', 'content']
+    list_filter = ('created_on', 'updated_on')
+    ordering = ('-created_on',)

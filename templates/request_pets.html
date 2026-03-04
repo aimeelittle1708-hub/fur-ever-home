@@ -62,7 +62,9 @@
                 <div class="card-footer bg-white border-0">
                     <a href="{% url 'pet_detail' request.pet.id %}" class="btn btn-sm btn-outline-primary">View Pet</a>
                     {% if request.status == 1 %}
+                    <a href="{% url 'edit_request' request.id %}" class="btn btn-sm btn-outline-secondary">Edit</a>
                     <a href="{% url 'cancel_request' request.id %}" class="btn btn-sm btn-outline-danger">Cancel Request</a>
+                    <a href="{% url 'delete_request' request.id %}" class="btn btn-sm btn-danger">Delete</a>
                     {% endif %}
                 </div>
             </div>

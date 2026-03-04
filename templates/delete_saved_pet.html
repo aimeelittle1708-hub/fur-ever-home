@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card shadow-sm border-danger">
+                <div class="card-body">
+                    <h1 class="h3 mb-4 text-danger">Remove Saved Pet</h1>
+                    <p>Are you sure you want to remove <strong>{{ favourite.pet.name }}</strong> from your saved pets?</p>
+
+                    {% if favourite.notes %}
+                    <blockquote class="blockquote p-3 bg-light rounded">
+                        {{ favourite.notes }}
+                    </blockquote>
+                    {% endif %}
+
+                    <form method="post" class="d-flex gap-2">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Remove</button>
+                        <a href="{% url 'saved_pets' %}" class="btn btn-outline-secondary">Cancel</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
