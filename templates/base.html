@@ -10,11 +10,11 @@
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
             rel="stylesheet"
         />
-        <link rel="stylesheet" href="{% static 'css/style.css' %}" />
         <style>
         @import url('https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap');
         </style>
         <link rel="icon" href="{% static 'images/favicon.ico' %}" />
+        <link rel="stylesheet" href="{% static 'css/style.css' %}" />
     </head>
 
     <body class="d-flex flex-column min-vh-100">
@@ -23,11 +23,12 @@
             Skip to main content
         </a>
 
-        <nav class="navbar navbar-expand-lg bg-light px-4" aria-label="Nav Bar">
+        <nav class="navbar bg-light px-4" aria-label="Nav Bar">
             <a
                 class="navbar-brand fw-bold"
                 href="{% url 'home' %}"
                 aria-label="Fur Ever Homes home"
+                id="navbar-title"
             >
                 🐾 Fur Ever Homes
             </a>
