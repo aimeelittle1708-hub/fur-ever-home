@@ -19,7 +19,7 @@
             </a>
 
             <a
-                class="btn btn-success ms-lg-2"
+                class="btn btn-light btn-lg ms-lg-2"
                 href="{% url 'request_pet_start' %}"
                 aria-label="Go straight to adopting a pet"
             >
@@ -55,75 +55,99 @@
     </div>
 </div>
 
-<div class="row g-4">
-    <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-            <div class="card-body">
-                <h2 class="card-title fw-bold h5">📝 Post a Pet</h2>
-                <p class="card-text text-muted">
-                    Have a pet looking for a forever home? Post their details,
-                    share their story, and help them find the perfect match.
-                </p>
+
+<div class="container">
+    {% if featured_pets %}
+    <section class="featured-pets-section mb-5">
+        <h2 class="fw-bold">Featured Pets</h2>
+        <div class="row">
+            {% for pet in featured_pets %}
+            <div class="col-md-4 mb-3">
+                <div class="card h-100 shadow-sm">
+                    {% if pet.photo %}
+                    <img src="{{ pet.photo.url }}" class="card-img-top rounded-top" alt="{{ pet.name }}" style="object-fit:cover; height:220px;">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ pet.name }}</h5>
+                        <p class="card-text">{{ pet.get_species_display }} | {{ pet.breed }}</p>
+                        <p class="card-text">{{ pet.description|truncatewords:20 }}</p>
+                        <a href="{% url 'pet_detail' pet.id %}" class="btn btn-primary w-100">View Details</a>
+                    </div>
+                </div>
             </div>
-            <div class="card-footer bg-white border-0">
-                {% if user.is_authenticated %}
-                <a
-                    href="{% url 'create_pet' %}"
-                    class="btn btn-sm btn-success"
-                    aria-label="Post a pet"
-                >
-                    Post a Pet
-                </a>
-                {% else %}
-                <a
-                    href="{% url 'account_login' %}"
-                    class="btn btn-sm btn-outline-success"
-                    aria-label="Login to post a pet"
-                >
-                    Login to Post
-                </a>
-                {% endif %}
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title fw-bold h5">📝 Post a Pet</h2>
+                    <p class="card-text text-muted">
+                        Have a pet looking for a forever home? Post their details,
+                        share their story, and help them find the perfect match.
+                    </p>
+                </div>
+                <div class="card-footer bg-white border-0">
+                    {% if user.is_authenticated %}
+                    <a
+                        href="{% url 'create_pet' %}"
+                        class="btn btn-sm btn-success w-100"
+                        aria-label="Post a pet"
+                    >
+                        Post a Pet
+                    </a>
+                    {% else %}
+                    <a
+                        href="{% url 'account_login' %}"
+                        class="btn btn-sm btn-outline-success w-100"
+                        aria-label="Login to post a pet"
+                    >
+                        Login to Post
+                    </a>
+                    {% endif %}
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-            <div class="card-body">
-                <h2 class="card-title fw-bold h5">View Pets</h2>
-                <p class="card-text text-muted">
-                    Browse pets looking for a forever home. Filter by type, age,
-                    and location to find your perfect match.
-                </p>
-            </div>
-            <div class="card-footer bg-white border-0">
-                <a
-                    href="{% url 'view_pets' %}"
-                    class="btn btn-sm btn-success"
-                    aria-label="Browse pets looking for a forever home"
-                    >Browse Pets</a
-                >
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title fw-bold h5">View Pets</h2>
+                    <p class="card-text text-muted">
+                        Browse pets looking for a forever home. Filter by type, age,
+                        and location to find your perfect match.
+                    </p>
+                </div>
+                <div class="card-footer bg-white border-0">
+                    <a
+                        href="{% url 'view_pets' %}"
+                        class="btn btn-sm btn-success w-100"
+                        aria-label="Browse pets looking for a forever home"
+                        >Browse Pets</a>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-            <div class="card-body">
-                <h2 class="card-title fw-bold h5">❤️ Adopt a Pet</h2>
-                <p class="card-text text-muted">
-                    Find pets and their humans a place to connect. Less Lonely
-                    Hearts. More Wagging Tails.
-                </p>
-            </div>
-            <div class="card-footer bg-white border-0">
-                <a
-                    href="{% url 'request_pet_start' %}"
-                    class="btn btn-sm btn-outline-success"
-                    aria-label="Learn more about Fur Ever Homes and our mission to give pets and their humans a place to connect"
-                >
-                    Request a Pet
-                </a>
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title fw-bold h5">❤️ Adopt a Pet</h2>
+                    <p class="card-text text-muted">
+                        Find pets and their humans a place to connect. Less Lonely
+                        Hearts. More Wagging Tails.
+                    </p>
+                </div>
+                <div class="card-footer bg-white border-0">
+                    <a
+                        href="{% url 'request_pet_start' %}"
+                        class="btn btn-sm btn-outline-success w-100"
+                        aria-label="Learn more about Fur Ever Homes and our mission to give pets and their humans a place to connect"
+                    >
+                        Request a Pet
+                    </a>
+                </div>
             </div>
         </div>
     </div>

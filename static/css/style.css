@@ -1,3 +1,69 @@
+.btn-light {
+    background: var(--accent) !important;
+    color: #fff !important;
+    border: none;
+    font-weight: 600;
+    border-radius: 1rem;
+    box-shadow: 0 1px 4px rgba(42, 157, 143, 0.08);
+    transition: background 0.2s, color 0.2s;
+}
+.btn-light:hover {
+    background: var(--success) !important;
+    color: #fff !important;
+}
+/* === Navbar Styling === */
+.navbar {
+    background: var(--surface) !important;
+    border-bottom: 2px solid var(--primary);
+    box-shadow: 0 2px 8px rgba(42, 157, 143, 0.08);
+}
+.navbar-brand {
+    color: var(--primary) !important;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+.navbar-nav .nav-link {
+    color: var(--text) !important;
+    font-weight: 600;
+    border-radius: 0.75rem;
+    padding: 0.5rem 1rem;
+    transition: background 0.2s, color 0.2s;
+}
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link:focus {
+    background: var(--primary);
+    color: #fff !important;
+}
+.navbar-nav .nav-link[aria-current="page"] {
+    background: var(--primary);
+    color: #fff !important;
+}
+.navbar-toggler {
+    border: 2px solid var(--primary);
+    background: var(--background);
+}
+.navbar-toggler-icon {
+    color: var(--primary);
+}
+.btn-success,
+.btn-outline-success {
+    margin-left: 0.5rem;
+}
+.card .btn,
+.card .btn-success,
+.card .btn-primary,
+.card .btn-outline-success {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    font-weight: 600;
+    border-radius: 1rem;
+    box-shadow: 0 1px 4px rgba(42, 157, 143, 0.08);
+    transition: background 0.2s, color 0.2s;
+    font-size: 1.1rem;
+    padding: 0.75rem 1rem;
+}
 /* LOGIN & SIGNUP */
 /* Hide "Forgot your password" on the login page */
 .helptext {
@@ -9,4 +75,119 @@
 label[for="id_email"],
 input[name="email"] {
     display: none;
+}
+
+/* === Fur-Ever Home Color Palette === */
+:root {
+    --primary: #2A9D8F;
+    --accent: #E76F51;
+    --background: #FAFAFA;
+    --surface: #F4E1C1;
+    --text: #333333;
+    --success: #6BBF59;
+}
+
+body {
+    background: var(--background);
+    color: var(--text);
+    font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+a:hover {
+    color: var(--accent);
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+}
+.btn-primary:hover {
+    background: var(--accent);
+}
+
+
+.card .btn,
+.card .btn-success,
+.card .btn-primary,
+.card .btn-outline-success {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    font-weight: 600;
+    border-radius: 1rem;
+    box-shadow: 0 1px 4px rgba(42, 157, 143, 0.08);
+    transition: background 0.2s, color 0.2s;
+}
+.card .btn:hover,
+.card .btn-success:hover,
+.card .btn-primary:hover,
+.card .btn-outline-success:hover {
+    background: var(--accent);
+    color: #fff;
+}
+
+.card {
+    background: var(--surface);
+    border-radius: 2rem;
+    box-shadow: 0 2px 8px rgba(42, 157, 143, 0.08);
+    border: none;
+    overflow: hidden;
+}
+.card-img-top {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+    border-radius: 0 !important;
+}
+.card-title {
+    color: var(--accent);
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+.card-text {
+    color: var(--text);
+}
+.hero {
+    background: linear-gradient(90deg, var(--primary) 60%, var(--surface) 100%);
+    color: #fff;
+    border-radius: 0 0 2rem 2rem;
+}
+.hero h1 {
+    color: #fff;
+}
+.hero .btn {
+    margin-bottom: 0.5rem;
+}
+
+/* Featured Pets Section */
+.featured-pets-section {
+    background: var(--surface);
+    border-radius: 1rem;
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 8px rgba(42, 157, 143, 0.08);
+}
+.featured-pets-section h2 {
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+}
+.featured-pets-section .card {
+    border: 2px solid var(--primary);
+}
+.featured-pets-section .card-title {
+    color: var(--primary);
 }
