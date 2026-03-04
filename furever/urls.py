@@ -7,7 +7,7 @@ urlpatterns = [
     path('pets/mine/', views.my_pets, name='my_pets'),
     path('pets/saved/', views.saved_pets, name='saved_pets'),
     path('request-a-pet/', views.request_pet_start, name='request_pet_start'),
-    path('requests/new/', views.request_pet_form, name='request_pet_form'),
+    # path('requests/new/', views.request_pet_form, name='request_pet_form'),
     path('pets/<int:pet_id>/', views.pet_detail, name='pet_detail'),
     path('pets/create/', views.create_pet, name='create_pet'),
     path('pets/<int:pet_id>/edit/', views.edit_pet, name='edit_pet'),
@@ -56,5 +56,4 @@ urlpatterns = [
         name='cancel_request',
     ),
     path('success-stories/', views.success_stories, name='success_stories'),
-    path('about/', views.about, name='about'),
 ]

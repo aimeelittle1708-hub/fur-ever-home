@@ -2,6 +2,11 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'Bubblegum Sans', cursive !important;
 }
 
+#navbar-title {
+    font-size: 2rem;
+    font-family: 'Bubblegum Sans', cursive;
+}
+
 .btn {
     border-radius: 2rem !important;
 }
