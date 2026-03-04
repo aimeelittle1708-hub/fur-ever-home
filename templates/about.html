@@ -12,7 +12,6 @@
         <div class="d-flex flex-wrap gap-2">
             <a
                 class="btn btn-light btn-lg"
-                href="{% url 'view_pets' %}"
                 aria-label="Browse pets looking for a forever home"
             >
                 View Pets
@@ -28,16 +27,16 @@
 
             {% if user.is_authenticated %}
             <a
-                class="btn btn-success btn-lg"
-                href="{% url 'create_pet' %}"
-                aria-label="Post a pet in need of a forever home"
+                class="btn btn-dark btn-lg"
+                href=""
+                aria-label="Request a pet in need of a forever home"
             >
-                Post a Pet
+                Request a Pet
             </a>
             {% else %}
             <a
                 class="btn btn-dark btn-lg"
-                href="{% url 'account_signup' %}"
+                href=""
                 aria-label="Create an account to upload resources and join discussions"
             >
                 Create an Account
@@ -51,30 +50,21 @@
     <div class="col-md-4">
         <div class="card h-100 shadow-sm">
             <div class="card-body">
-                <h2 class="card-title fw-bold h5">📝 Post a Pet</h2>
+                <h2 class="card-title fw-bold h5">Request a Pet</h2>
                 <p class="card-text text-muted">
-                    Have a pet looking for a forever home? Post their details,
-                    share their story, and help them find the perfect match.
+                    Request a pet in need of a forever home. Share your story,
+                    your ideal pet match, and connect with others who can help
+                    make it happen.
                 </p>
             </div>
             <div class="card-footer bg-white border-0">
-                {% if user.is_authenticated %}
                 <a
-                    href="{% url 'create_pet' %}"
+                    href=""
                     class="btn btn-sm btn-success"
-                    aria-label="Post a pet"
+                    aria-label="Request a pet"
                 >
-                    Post a Pet
+                    Request a Pet
                 </a>
-                {% else %}
-                <a
-                    href="{% url 'account_login' %}"
-                    class="btn btn-sm btn-outline-success"
-                    aria-label="Login to post a pet"
-                >
-                    Login to Post
-                </a>
-                {% endif %}
             </div>
         </div>
     </div>
@@ -90,7 +80,7 @@
             </div>
             <div class="card-footer bg-white border-0">
                 <a
-                    href="{% url 'view_pets' %}"
+                    href=""
                     class="btn btn-sm btn-success"
                     aria-label="Browse pets looking for a forever home"
                     >Browse Pets</a
@@ -102,7 +92,7 @@
     <div class="col-md-4">
         <div class="card h-100 shadow-sm">
             <div class="card-body">
-                <h2 class="card-title fw-bold h5">❤️ Adopt a Pet</h2>
+                <h2 class="card-title fw-bold h5">💬 Community</h2>
                 <p class="card-text text-muted">
                     Find pets and their humans a place to connect. Less Lonely
                     Hearts. More Wagging Tails.
