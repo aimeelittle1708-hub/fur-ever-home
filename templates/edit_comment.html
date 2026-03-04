@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <h1 class="h3 mb-4">Edit Comment</h1>
+
+            <form method="post" class="card shadow-sm p-4">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="{{ form.content.id_for_label }}" class="form-label">Comment</label>
+                    {{ form.content }}
+                    {% if form.content.errors %}
+                    <div class="invalid-feedback d-block">{{ form.content.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-success">Save</button>
+                    <a href="{% url 'pet_detail' comment.pet.id %}" class="btn btn-outline-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

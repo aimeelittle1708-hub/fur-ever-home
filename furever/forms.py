@@ -1,5 +1,5 @@
 from django import forms
-from .models import Pet, AdoptionRequest
+from .models import Pet, AdoptionRequest, Favourite, Comment
 
 
 class PetForm(forms.ModelForm):
@@ -104,3 +104,32 @@ class RequestPetForm(forms.ModelForm):
         self.fields['pet'].queryset = available_pets
         self.fields['pet'].empty_label = 'Choose a pet to request'
         self.fields['message'].required = False
+
+
+class FavouriteForm(forms.ModelForm):
+    class Meta:
+        model = Favourite
+        fields = ['notes']
+        widgets = {
+            'notes': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Optional note about this saved pet',
+            }),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['notes'].required = False
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['content']
+        widgets = {
+            'content': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 3,
+                'placeholder': 'Write your comment here...',
+            }),
+        }

@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="display-6 fw-bold mb-0">🐾 My Pet Listings</h1>
+        <a href="{% url 'create_pet' %}" class="btn btn-success">Add New Pet</a>
+    </div>
+
+    {% if pets %}
+    <div class="row g-4">
+        {% for pet in pets %}
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 shadow-sm">
+                {% if pet.photo %}
+                <img src="{{ pet.photo.url }}" class="card-img-top" alt="{{ pet.name }}" style="height: 200px; object-fit: cover;" />
+                {% else %}
+                <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                    <span class="text-muted fs-1">🐾</span>
+                </div>
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ pet.name }}</h5>
+                    <p class="text-muted mb-2">
+                        <span class="badge bg-secondary">{{ pet.get_species_display }}</span>
+                        {% if pet.status == 1 %}
+                        <span class="badge bg-info">Available</span>
+                        {% elif pet.status == 2 %}
+                        <span class="badge bg-warning text-dark">Pending</span>
+                        {% elif pet.status == 3 %}
+                        <span class="badge bg-success">Adopted</span>
+                        {% else %}
+                        <span class="badge bg-secondary">Inactive</span>
+                        {% endif %}
+                    </p>
+                    <p class="small mb-2">
+                        <strong>Approved:</strong>
+                        {% if pet.authorised %}
+                        <span class="text-success">Yes</span>
+                        {% else %}
+                        <span class="text-warning">Pending review</span>
+                        {% endif %}
+                    </p>
+                    <p class="small text-muted mb-0">Added {{ pet.date_added|date:"d M Y" }}</p>
+                </div>
+                <div class="card-footer bg-white border-0 d-flex gap-2">
+                    <a href="{% url 'pet_detail' pet.id %}" class="btn btn-sm btn-outline-primary">View</a>
+                    <a href="{% url 'edit_pet' pet.id %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                    <a href="{% url 'delete_pet' pet.id %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="alert alert-info" role="alert">
+        <h4 class="alert-heading">No pet listings yet</h4>
+        <p>You haven’t created any pet listings yet.</p>
+        <hr>
+        <a href="{% url 'create_pet' %}" class="btn btn-success">Create your first listing</a>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}
