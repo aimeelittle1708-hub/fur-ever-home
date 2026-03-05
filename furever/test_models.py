@@ -222,7 +222,8 @@ class CommentTestCase(TestCase):
             pet=self.pet,
             content='Great pet!'
         )
-        self.assertEqual(str(comment), f'Comment by {self.commenter} on {self.pet}')
+        expected = f'Comment by {self.commenter} on {self.pet}'
+        self.assertEqual(str(comment), expected)
 
     def test_comment_pet_foreign_key(self):
         """Test ForeignKey relationship with Pet"""
@@ -233,4 +234,3 @@ class CommentTestCase(TestCase):
         )
         self.assertEqual(comment.pet, self.pet)
         self.assertIn(comment, self.pet.comments.all())
-

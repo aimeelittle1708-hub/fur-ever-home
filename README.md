@@ -1,32 +1,38 @@
-# 🐾 Fur Ever Home
+# Fur Ever Home
 
 > A full-stack pet adoption platform built with Django that connects loving homes with pets in need.
 
 Fur Ever Home was created as part of a 16-week full-stack development course to showcase our skills in backend development, frontend design, database modelling, and dynamic user interaction.
 
+Live site: `https://fur-ever-home-pets-784e2d19c73a.herokuapp.com/`
+
+Project board: `https://github.com/users/aimeelittle1708-hub/projects/7`
+
 ---
 
-## 📌 Table of Contents
+## Table of Contents
 
 - [Overview](#overview)
 - [Features](#features)
 - [User Stories](#user-stories)
-- [Wire Frames](#wireframes)
+- [Wireframes](#wireframes)
 - [Design](#design)
 - [Tech Stack](#tech-stack)
 - [Database Models](#database-models)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Testing](#testing)
 - [Future Improvements](#future-improvements)
 - [Contributors](#contributors)
 
 ---
 
-## 📖 Overview
+## Overview
 
 Fur Ever Home is a web-based adoption platform designed to make finding and adopting pets simple and accessible.
 
 The platform allows users to:
+
 - Browse available pets
 - View detailed pet profiles
 - Create an account
@@ -34,6 +40,7 @@ The platform allows users to:
 - Save favourite pets
 
 Administrators can:
+
 - Add, edit, and remove pet listings
 - Manage adoption requests
 - Maintain up-to-date records
@@ -42,9 +49,10 @@ This project demonstrates full-stack development using Django, HTML, CSS, and Ja
 
 ---
 
-## ✨ Features
+## Features
 
-### 👤 User Features
+### User Features
+
 - User registration and login
 - Secure authentication system
 - Browse pets by category
@@ -53,12 +61,14 @@ This project demonstrates full-stack development using Django, HTML, CSS, and Ja
 - Save favourite pets
 - Responsive design for multiple screen sizes
 
-### 🛠 Admin Features
+### Admin Features
+
 - Create, update, and delete pet listings
 - Approve or reject adoption applications
 - Manage user accounts
 
-### 💡 Technical Features
+### Technical Features
+
 - Django ORM and relational database models
 - Form validation and error handling
 - Dynamic UI updates using JavaScript
@@ -67,7 +77,7 @@ This project demonstrates full-stack development using Django, HTML, CSS, and Ja
 
 ---
 
-## 🧠 User Stories
+## User Stories
 
 - As a user, I want to browse pets so that I can find one to adopt.
 - As a user, I want to create an account so that I can submit an adoption request.
@@ -76,53 +86,80 @@ This project demonstrates full-stack development using Django, HTML, CSS, and Ja
 - As an admin, I want to review adoption requests so that I can approve suitable applicants.
 
 ---
-## Wireframes
-<img width="2414" height="1362" alt="image" src="https://github.com/user-attachments/assets/745dfd04-a12e-4977-8c57-e19c370956f4" />
 
+## Wireframes
+
+<img width="2414" height="1362" alt="image" src="https://github.com/user-attachments/assets/745dfd04-a12e-4977-8c57-e19c370956f4" />
 
 <img width="2416" height="1362" alt="image" src="https://github.com/user-attachments/assets/c21cae74-de09-4d38-96da-f9f5eb9c6eca" />
 
-
 <img width="826" height="2558" alt="image" src="https://github.com/user-attachments/assets/8858a13a-517b-40eb-8ee5-dc7ea23ac7d4" />
-
 
 <img width="1608" height="1924" alt="image" src="https://github.com/user-attachments/assets/37e08385-99d7-40e2-a6ad-bd3bc2163ac7" />
 
 ---
+
 ## Design
-### Colour Pallet
-The Fur Ever Home colour scheme was designed to communicate trust, warmth, and approachability, reflecting the emotional nature of pet adoption. Calming teal tones guide key interactions and establish reliability, while warm neutral colours create a welcoming, home-like feel that aligns with the platform’s purpose. A vibrant orange accent is used strategically for call-to-action elements such as “Adopt Now” buttons, drawing attention to important decisions and encouraging positive user engagement. Accent colours are applied thoughtfully to highlight key actions and system feedback, improving usability and ensuring important features stand out clearly within the interface.
+
+### Colour Palette
+
+The Fur Ever Home colour scheme was designed to communicate trust, warmth, and approachability, reflecting the emotional nature of pet adoption. Calming teal tones guide key interactions and establish reliability, while warm neutral colours create a welcoming, home-like feel that aligns with the platform's purpose. A vibrant orange accent is used strategically for call-to-action elements such as "Adopt Now" buttons, drawing attention to important decisions and encouraging positive user engagement. Accent colours are applied thoughtfully to highlight key actions and system feedback, improving usability and ensuring important features stand out clearly within the interface.
+
 <img width="1035" height="777" alt="image" src="https://github.com/user-attachments/assets/d944a4b8-e542-4bcb-85b0-96992a730218" />
 
+### Fonts
 
-## 🛠 Tech Stack
+Google Fonts were used for headings to create a playful and engaging visual identity.
+
+```html
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap');
+</style>
+```
+
+## Tech Stack
 
 ### Backend
+
 - Python
 - Django
 
 ### Frontend
+
 - HTML5
 - CSS3
 - JavaScript
 
 ### Database
+
 - SQLite (development)
+- PostgreSQL (production)
+- `dj-database-url`
+
+### Cloud Services
+
+- Cloudinary
 
 ### Tools
-- Git & GitHub
+
+- Git and GitHub
 - VS Code
+- Google Fonts
+- Lucidchart (ERD creation)
+- Balsamiq (wireframes)
 
 ---
 
-## 🗄 Database Models
+## Database Models
 
 ### User (Django Authentication)
+
 - username
 - email
 - password
 
 ### Pet
+
 - name
 - species
 - breed
@@ -132,84 +169,83 @@ The Fur Ever Home colour scheme was designed to communicate trust, warmth, and a
 - available (Boolean)
 
 ### AdoptionRequest
+
 - user (ForeignKey)
 - pet (ForeignKey)
 - status (Pending / Approved / Rejected)
 - created_at
 
 ### Favourite
+
 - user (ForeignKey)
 - pet (ForeignKey)
+
 <img width="1062" height="630" alt="image" src="https://github.com/user-attachments/assets/676c1d00-d26e-4c1f-94a1-222d6fcb9d4e" />
-
-
-
 
 ---
 
-## ⚙ Installation
+## Installation
 
-bash
-#### Clone the repository
+```bash
+# Clone the repository
 git clone https://github.com/your-username/fur-ever-home.git
 
-#### Navigate into the project directory
+# Navigate into the project directory
 cd fur-ever-home
 
-#### Create a virtual environment
+# Create a virtual environment
 python -m venv venv
 
-#### Activate the virtual environment
-##### Windows
+# Activate the virtual environment (Windows)
 venv\Scripts\activate
 
-##### Mac/Linux
+# Activate the virtual environment (Mac/Linux)
 source venv/bin/activate
 
-##### Install dependencies
+# Install dependencies
 pip install -r requirements.txt
 
-##### Apply migrations
+# Apply migrations
 python manage.py migrate
 
-##### Run the development server
+# Run the development server
 python manage.py runserver
+```
 
 Visit the application at:
 
-http://127.0.0.1:8000/
+`http://127.0.0.1:8000/`
 
-## ▶ Usage
+## Usage
 
-Register for an account or log in.
+- Register for an account or log in.
+- Browse available pets.
+- View pet details.
+- Submit an adoption request.
+- Admin users can manage listings and review applications.
 
-Browse available pets.
+## Testing
 
-View pet details.
+- W3C HTML validation: no errors.
+- CSS validation: no errors.
+- Lighthouse testing: performance and best-practice scores are impacted by Cloudinary usage and image sizes.
+- Automated testing: unit tests were created for models, forms, and views.
 
-Submit an adoption request.
+## Future Improvements
 
-Admin users can manage listings and review applications.
+- Messaging system between adopters and shelters.
+- Email notifications for application updates.
+- Advanced filtering and search functionality.
+- Image upload enhancements.
+- Deployment improvements and observability.
 
-## 🚀 Future Improvements
+## Contributors
 
-Messaging system between adopters and shelters
+- Aimee
+- Cal
+- Josh
+- Wouter
 
-Email notifications for application updates
-
-Advanced filtering and search functionality
-
-Image upload enhancements
-
-Deployment to a live hosting platform
-
-## 👥 Contributors
-
-Aimee 
-Cal
-Josh
-Wouter
-
-## 🏆 Project Purpose
+## Project Purpose
 
 Fur Ever Home was created to celebrate the completion of a 16-week full-stack development course and to demonstrate our ability to design and build a fully functional web application using modern web technologies.
