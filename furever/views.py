@@ -17,7 +17,11 @@ from .forms import (
 
 def home(request):
     from .models import Pet
-    featured_pets = Pet.objects.filter(featured=True, authorised=True, status=Pet.Status.AVAILABLE).order_by('-date_added')[:3]
+    featured_pets = Pet.objects.filter(
+        featured=True,
+        authorised=True,
+        status=Pet.Status.AVAILABLE
+    ).order_by('-date_added')[:3]
     return render(request, 'home.html', {'featured_pets': featured_pets})
 
 
@@ -90,10 +94,10 @@ def request_pet_form(request):
 
 def pet_detail(request, pet_id):
     pet = get_object_or_404(Pet, pk=pet_id)
-    
+
     # Allow owners to see their own pets even if not available or authorised
     is_owner = request.user.is_authenticated and pet.user == request.user
-    
+
     # Check if user has an approved adoption request for this pet
     has_approved_request = False
     if request.user.is_authenticated:
@@ -102,7 +106,7 @@ def pet_detail(request, pet_id):
             pet=pet,
             status=AdoptionRequest.Status.APPROVED
         ).exists()
-    
+
     # For non-owners: only show if available and authorised,
     # or if they have an approved adoption request
     if not is_owner and not has_approved_request and (
@@ -110,7 +114,7 @@ def pet_detail(request, pet_id):
     ):
         # Non-owners can't see unauthorised or non-available pets
         raise Http404("No Pet matches the given query.")
-    
+
     # Check if user has already requested this pet
     has_requested = False
     saved_pet = None
@@ -125,7 +129,7 @@ def pet_detail(request, pet_id):
         ).first()
 
     comments = Comment.objects.filter(pet=pet).select_related('user')
-    
+
     return render(request, 'pet_detail.html', {
         'pet': pet,
         'has_requested': has_requested,
@@ -158,7 +162,10 @@ def save_pet(request, pet_id):
             favourite.save()
             messages.success(request, f'Updated saved notes for {pet.name}.')
         else:
-            messages.info(request, f'{pet.name} is already in your saved pets.')
+            messages.info(
+                request,
+                f'{pet.name} is already in your saved pets.'
+            )
         return redirect('pet_detail', pet_id=pet.id)
 
     new_favourite = Favourite(user=request.user, pet=pet)
@@ -179,7 +186,11 @@ def saved_pets(request):
 
 @login_required
 def edit_saved_pet(request, favourite_id):
-    favourite = get_object_or_404(Favourite, pk=favourite_id, user=request.user)
+    favourite = get_object_or_404(
+        Favourite,
+        pk=favourite_id,
+        user=request.user
+    )
 
     if request.method == 'POST':
         form = FavouriteForm(request.POST, instance=favourite)
@@ -199,7 +210,11 @@ def edit_saved_pet(request, favourite_id):
 
 @login_required
 def delete_saved_pet(request, favourite_id):
-    favourite = get_object_or_404(Favourite, pk=favourite_id, user=request.user)
+    favourite = get_object_or_404(
+        Favourite,
+        pk=favourite_id,
+        user=request.user
+    )
 
     if request.method == 'POST':
         pet_name = favourite.pet.name
@@ -348,12 +363,12 @@ def request_adoption(request, pet_id):
         status=Pet.Status.AVAILABLE,
         authorised=True,
     )
-    
+
     # Check if user is trying to adopt their own pet
     if pet.user == request.user:
         messages.error(request, 'You cannot request to adopt your own pet.')
         return redirect('pet_detail', pet_id=pet.id)
-    
+
     # Check if user has already requested this pet
     if AdoptionRequest.objects.filter(user=request.user, pet=pet).exists():
         messages.warning(
@@ -361,7 +376,7 @@ def request_adoption(request, pet_id):
             'You have already submitted an adoption request for this pet.',
         )
         return redirect('pet_detail', pet_id=pet.id)
-    
+
     if request.method == 'POST':
         form = AdoptionRequestForm(request.POST)
         if form.is_valid():
@@ -379,7 +394,7 @@ def request_adoption(request, pet_id):
             return redirect('request_pets')
     else:
         form = AdoptionRequestForm()
-    
+
     return render(request, 'request_adoption.html', {'form': form, 'pet': pet})
 
 
@@ -389,7 +404,7 @@ def request_pets(request):
     adoption_requests = AdoptionRequest.objects.filter(
         user=request.user
     ).select_related('pet').order_by('-request_date')
-    
+
     return render(
         request,
         'request_pets.html',
@@ -453,7 +468,7 @@ def cancel_request(request, request_id):
         pk=request_id,
         user=request.user
     )
-    
+
     if request.method == 'POST':
         pet_name = adoption_request.pet.name
         adoption_request.status = AdoptionRequest.Status.CANCELLED
@@ -463,7 +478,7 @@ def cancel_request(request, request_id):
             f'Your adoption request for {pet_name} has been cancelled.',
         )
         return redirect('request_pets')
-    
+
     return render(
         request,
         'cancel_request.html',
@@ -477,7 +492,7 @@ def pet_adoption_requests(request):
     adoption_requests = AdoptionRequest.objects.filter(
         pet__user=request.user
     ).select_related('pet', 'user').order_by('-request_date')
-    
+
     return render(
         request,
         'pet_adoption_requests.html',
@@ -493,22 +508,22 @@ def accept_adoption_request(request, request_id):
         pk=request_id,
         pet__user=request.user,
     )
-    
+
     adoption_request.status = AdoptionRequest.Status.APPROVED
     adoption_request.save()
-    
+
     # Mark pet as adopted
     pet = adoption_request.pet
     pet.status = Pet.Status.ADOPTED
     pet.save()
-    
+
     messages.success(
         request,
         f'You approved the adoption request from '
         f'{adoption_request.user.username} for '
         f'{adoption_request.pet.name}. Pet marked as adopted.',
     )
-    
+
     return redirect('pet_adoption_requests')
 
 
@@ -520,17 +535,17 @@ def reject_adoption_request(request, request_id):
         pk=request_id,
         pet__user=request.user,
     )
-    
+
     adoption_request.status = AdoptionRequest.Status.REJECTED
     adoption_request.save()
-    
+
     messages.success(
         request,
         f'You rejected the adoption request from '
         f'{adoption_request.user.username} for '
         f'{adoption_request.pet.name}.',
     )
-    
+
     return redirect('pet_adoption_requests')
 
 

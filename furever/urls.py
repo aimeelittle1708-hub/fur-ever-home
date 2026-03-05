@@ -23,7 +23,11 @@ urlpatterns = [
         views.delete_saved_pet,
         name='delete_saved_pet',
     ),
-    path('pets/<int:pet_id>/comments/add/', views.add_comment, name='add_comment'),
+    path(
+        'pets/<int:pet_id>/comments/add/',
+        views.add_comment,
+        name='add_comment'
+    ),
     path(
         'comments/<int:comment_id>/edit/',
         views.edit_comment,
