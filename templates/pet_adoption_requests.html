@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container my-5">
+    <div class="mb-4">
+        <h1>📬 Adoption Requests Received</h1>
+        <p class="text-muted">Manage adoption requests for your pet listings</p>
+    </div>
+    
+    {% if adoption_requests %}
+    <div class="row g-4">
+        {% for request in adoption_requests %}
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 shadow-sm">
+                {% if request.pet.photo %}
+                <img 
+                    src="{{ request.pet.photo.url }}" 
+                    class="card-img-top" 
+                    alt="{{ request.pet.name }}" 
+                    style="height: 200px; object-fit: cover;"
+                >
+                {% else %}
+                <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                    <span class="text-muted fs-1">🐾</span>
+                </div>
+                {% endif %}
+                <div class="card-body">
+                    <div class="mb-3">
+                        <h2 class="card-title mb-1">{{ request.pet.name }}</h2>
+                        <p class="text-muted mb-0">
+                            <strong>From:</strong> {{ request.user.username }}
+                        </p>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <p class="mb-2">
+                            <span class="badge bg-info">{{ request.pet.get_species_display }}</span>
+                            {% if request.pet.breed %}<span class="badge bg-light text-dark">{{ request.pet.breed }}</span>{% endif %}
+                        </p>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <p class="card-text mb-2">
+                            <small class="text-muted">
+                                <strong>Status:</strong>
+                                {% if request.status == 1 %}
+                                <span class="badge bg-warning text-dark">Pending</span>
+                                {% elif request.status == 2 %}
+                                <span class="badge bg-success">Approved</span>
+                                {% elif request.status == 3 %}
+                                <span class="badge bg-danger">Rejected</span>
+                                {% elif request.status == 4 %}
+                                <span class="badge bg-secondary">Cancelled</span>
+                                {% endif %}
+                            </small>
+                        </p>
+                        <p class="card-text">
+                            <small class="text-muted">Requested: {{ request.request_date|date:"d M Y" }}</small>
+                        </p>
+                    </div>
+                    
+                    {% if request.message %}
+                    <div class="mb-3">
+                        <p class="card-text">
+                            <small><strong>Message:</strong></small>
+                            <br>
+                            <small class="text-muted">{{ request.message|truncatewords:20 }}</small>
+                        </p>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="card-footer bg-white border-0">
+                    <div class="d-flex gap-2">
+                        <a href="{% url 'pet_detail' request.pet.id %}" class="btn btn-sm btn-outline-primary flex-grow-1">View Pet</a>
+                        {% if request.status == 1 %}
+                        <a href="{% url 'accept_adoption_request' request.id %}" class="btn btn-sm btn-success">Accept</a>
+                        <a href="{% url 'reject_adoption_request' request.id %}" class="btn btn-sm btn-danger">Reject</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="alert alert-info" role="alert">
+        <h4 class="alert-heading">📭 No requests yet</h4>
+        <p>You haven't received any adoption requests for your pets yet.</p>
+        <hr>
+        <p class="mb-0">
+            <a href="{% url 'my_pets' %}" class="alert-link">View your pet listings</a> to see your posted pets.
+        </p>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}
