@@ -1,4 +1,6 @@
-# Fur Ever Home
+# Fur Ever Home by Aimee, Callum, Josh, Wouter.
+---
+<img width="690" height="419" alt="image" src="https://github.com/user-attachments/assets/24e520d7-157d-433a-81a6-e6a52f7f6d4d" />
 
 > A full-stack pet adoption platform built with Django that connects loving homes with pets in need.
 
@@ -31,13 +33,27 @@ Project board: `https://github.com/users/aimeelittle1708-hub/projects/7`
 
 Fur Ever Home is a web-based adoption platform designed to make finding and adopting pets simple and accessible.
 
+<img width="1145" height="726" alt="image" src="https://github.com/user-attachments/assets/79dd14c3-a9b2-42cf-b9ae-a4c575cbaf63" />
+
+
 The platform allows users to:
 
 - Browse available pets
 - View detailed pet profiles
+
+<img width="1129" height="708" alt="image" src="https://github.com/user-attachments/assets/934a3782-5c8a-41dd-bdb4-78ad28ed1e86" />
+
+<img width="961" height="587" alt="image" src="https://github.com/user-attachments/assets/3b5b310e-21d3-4325-8885-bcb61e6611a6" />
+  
 - Create an account
+  
+<img width="415" height="378" alt="image" src="https://github.com/user-attachments/assets/de49167c-2bcf-4b72-ab93-c069655e8a87" />
+
 - Submit adoption requests
 - Save favourite pets
+
+<img width="582" height="559" alt="image" src="https://github.com/user-attachments/assets/ccc28a14-6b94-4724-8608-94416b05b04e" />
+
 
 Administrators can:
 
@@ -111,12 +127,14 @@ The Fur Ever Home colour scheme was designed to communicate trust, warmth, and a
 
 Google Fonts were used for headings to create a playful and engaging visual identity.
 
+<img width="641" height="442" alt="image" src="https://github.com/user-attachments/assets/5ef7e0ec-8e48-4145-8abb-f95a559c6e28" />
+
 ```html
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap');
 </style>
 ```
-
+---
 ## Tech Stack
 
 ### Backend
@@ -224,12 +242,25 @@ Visit the application at:
 - Submit an adoption request.
 - Admin users can manage listings and review applications.
 
+---
+
 ## Testing
 
 - W3C HTML validation: no errors.
+
+<img width="593" height="522" alt="image" src="https://github.com/user-attachments/assets/a8c479a5-19d8-47db-8707-202382d30a69" />
+
 - CSS validation: no errors.
+
+<img width="800" height="343" alt="image" src="https://github.com/user-attachments/assets/0510c406-454d-4dae-bbf1-1f506ec3110c" />
+
 - Lighthouse testing: performance and best-practice scores are impacted by Cloudinary usage and image sizes.
+
+<img width="414" height="387" alt="image" src="https://github.com/user-attachments/assets/794d2700-e452-4c71-a115-190178678450" />
+  
 - Automated testing: unit tests were created for models, forms, and views.
+
+---
 
 ## Future Improvements
 
@@ -238,6 +269,8 @@ Visit the application at:
 - Advanced filtering and search functionality.
 - Image upload enhancements.
 - Deployment improvements and observability.
+
+---
 
 ## Contributors
 
