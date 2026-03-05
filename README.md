@@ -85,7 +85,7 @@ Large screens and desktops
 - Approve or reject adoption applications
 - Create, update, and delete pet listings
  
--### 🛠 Admin Features 
+### 🛠 Admin Features 
 - Manage user accounts
 
 ### 💡 Technical Features
