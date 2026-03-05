@@ -11,6 +11,27 @@
         {% endif %}
     </div>
 
+    <!-- Species Filter -->
+    <form method="get" class="mb-4">
+        <div class="d-flex gap-2 align-items-end flex-wrap">
+            <div style="min-width: 250px;">
+                <label for="species-filter" class="form-label fw-bold">Filter by Species:</label>
+                <select name="species" id="species-filter" class="form-select">
+                    <option value="">All Species</option>
+                    {% for value, label in species_choices %}
+                    <option value="{{ value }}" {% if selected_species|stringformat:"s" == value|stringformat:"s" %}selected{% endif %}>
+                        {{ label }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Filter</button>
+            {% if selected_species %}
+            <a href="{% url 'view_pets' %}" class="btn btn-secondary">Clear Filter</a>
+            {% endif %}
+        </div>
+    </form>
+
     {% if pets %}
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
         {% for pet in pets %}
@@ -29,7 +50,7 @@
                 </div>
                 {% endif %}
                 <div class="card-body d-flex flex-column">
-                    <h5 class="card-title mb-1">{{ pet.name }}</h5>
+                    <h2 class="card-title mb-1">{{ pet.name }}</h2>
                     <p class="text-muted small mb-3">
                         {{ pet.get_species_display }}{% if pet.breed %} • {{ pet.breed }}{% endif %}
                     </p>
@@ -71,7 +92,7 @@
     </div>
     {% else %}
     <div class="alert alert-info" role="alert">
-        <h4 class="alert-heading">No pets available</h4>
+        <h2 class="alert-heading">No pets available</h2>
         <p>There are currently no pets available for adoption.</p>
         {% if user.is_authenticated %}
         <hr>
