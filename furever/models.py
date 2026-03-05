@@ -1,7 +1,6 @@
 from django.conf import settings
 from django.db import models
 from cloudinary.models import CloudinaryField
-from django.contrib.auth.models import User
 
 
 class UserProfile(models.Model):
@@ -57,7 +56,10 @@ class Pet(models.Model):
     species = models.IntegerField(choices=Species.choices)
     breed = models.CharField(max_length=120, blank=True)
     age = models.PositiveIntegerField(default=0)
-    gender = models.IntegerField(choices=Gender.choices, default=Gender.UNKNOWN)
+    gender = models.IntegerField(
+        choices=Gender.choices,
+        default=Gender.UNKNOWN
+    )
 
     description = models.TextField(blank=True)
 
@@ -66,7 +68,10 @@ class Pet(models.Model):
     photo = CloudinaryField("image", blank=True, null=True)
 
     location = models.CharField(max_length=255, blank=True)
-    status = models.IntegerField(choices=Status.choices, default=Status.AVAILABLE)
+    status = models.IntegerField(
+        choices=Status.choices,
+        default=Status.AVAILABLE
+    )
 
     authorised = models.BooleanField(default=False)
     featured = models.BooleanField(default=False)
@@ -98,7 +103,10 @@ class AdoptionRequest(models.Model):
     )
 
     request_date = models.DateTimeField(auto_now_add=True)
-    status = models.IntegerField(choices=Status.choices, default=Status.PENDING)
+    status = models.IntegerField(
+        choices=Status.choices,
+        default=Status.PENDING
+    )
     message = models.TextField(blank=True)
 
     class Meta:
