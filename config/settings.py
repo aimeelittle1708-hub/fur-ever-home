@@ -15,7 +15,7 @@ from pathlib import Path
 import dj_database_url
 
 if os.path.isfile('env.py'):
-    pass
+    import env  # noqa
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -104,7 +104,8 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASE_URL = os.environ.get("DATABASE_URL")
 if not DATABASE_URL:
     raise ValueError(
-        "DATABASE_URL environment variable is not set. Check env.py."
+        "DATABASE_URL environment variable is not set. "
+        "Check env.py."
     )
 
 DATABASES = {
@@ -120,7 +121,8 @@ DATABASES = {
 CLOUDINARY_URL = os.environ.get('CLOUDINARY_URL')
 
 # Password validation
-# https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
+# https://docs.djangoproject.com/en/4.2/ref/settings/
+# #auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
