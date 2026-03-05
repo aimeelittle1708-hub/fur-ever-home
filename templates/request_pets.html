@@ -70,10 +70,9 @@
     </div>
     {% else %}
     <div class="alert alert-info" role="alert">
-        <h4 class="alert-heading">No adoption requests yet</h4>
+        <h2 class="alert-heading h4">No adoption requests yet</h2>
         <p>You haven't submitted any adoption requests. Browse available pets and submit a request when you find your perfect match!</p>
         <hr>
-        <a href="{% url 'request_pet_start' %}" class="btn btn-success">Request a Pet</a>
         <a href="{% url 'view_pets' %}" class="btn btn-outline-primary ms-2">Browse Available Pets</a>
     </div>
     {% endif %}
