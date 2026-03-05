@@ -55,5 +55,20 @@ urlpatterns = [
         views.cancel_request,
         name='cancel_request',
     ),
+    path(
+        'requests/received/',
+        views.pet_adoption_requests,
+        name='pet_adoption_requests',
+    ),
+    path(
+        'requests/<int:request_id>/accept/',
+        views.accept_adoption_request,
+        name='accept_adoption_request',
+    ),
+    path(
+        'requests/<int:request_id>/reject/',
+        views.reject_adoption_request,
+        name='reject_adoption_request',
+    ),
     path('success-stories/', views.success_stories, name='success_stories'),
 ]
