@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse
+from django.http import Http404
 from django.db import IntegrityError
 from django.views.decorators.csrf import ensure_csrf_cookie
 from .models import Pet, AdoptionRequest, Favourite, Comment
@@ -88,13 +89,26 @@ def request_pet_form(request):
 
 
 def pet_detail(request, pet_id):
-    pet = get_object_or_404(Pet, pk=pet_id, status=Pet.Status.AVAILABLE)
+    pet = get_object_or_404(Pet, pk=pet_id)
     
-    # Allow owners to see their own pets even if not authorised
+    # Allow owners to see their own pets even if not available or authorised
     is_owner = request.user.is_authenticated and pet.user == request.user
-    if not pet.authorised and not is_owner:
-        # Non-owners can't see unauthorised pets
-        from django.http import Http404
+    
+    # Check if user has an approved adoption request for this pet
+    has_approved_request = False
+    if request.user.is_authenticated:
+        has_approved_request = AdoptionRequest.objects.filter(
+            user=request.user,
+            pet=pet,
+            status=AdoptionRequest.Status.APPROVED
+        ).exists()
+    
+    # For non-owners: only show if available and authorised,
+    # or if they have an approved adoption request
+    if not is_owner and not has_approved_request and (
+        not pet.authorised or pet.status != Pet.Status.AVAILABLE
+    ):
+        # Non-owners can't see unauthorised or non-available pets
         raise Http404("No Pet matches the given query.")
     
     # Check if user has already requested this pet
@@ -206,7 +220,6 @@ def add_comment(request, pet_id):
 
     is_owner = pet.user == request.user
     if not pet.authorised and not is_owner:
-        from django.http import Http404
         raise Http404('No Pet matches the given query.')
 
     if request.method == 'POST':
@@ -456,6 +469,69 @@ def cancel_request(request, request_id):
         'cancel_request.html',
         {'adoption_request': adoption_request},
     )
+
+
+@login_required
+def pet_adoption_requests(request):
+    """Show adoption requests for pets owned by the current user"""
+    adoption_requests = AdoptionRequest.objects.filter(
+        pet__user=request.user
+    ).select_related('pet', 'user').order_by('-request_date')
+    
+    return render(
+        request,
+        'pet_adoption_requests.html',
+        {'adoption_requests': adoption_requests},
+    )
+
+
+@login_required
+def accept_adoption_request(request, request_id):
+    """Accept an adoption request (mark as approved and pet as adopted)"""
+    adoption_request = get_object_or_404(
+        AdoptionRequest,
+        pk=request_id,
+        pet__user=request.user,
+    )
+    
+    adoption_request.status = AdoptionRequest.Status.APPROVED
+    adoption_request.save()
+    
+    # Mark pet as adopted
+    pet = adoption_request.pet
+    pet.status = Pet.Status.ADOPTED
+    pet.save()
+    
+    messages.success(
+        request,
+        f'You approved the adoption request from '
+        f'{adoption_request.user.username} for '
+        f'{adoption_request.pet.name}. Pet marked as adopted.',
+    )
+    
+    return redirect('pet_adoption_requests')
+
+
+@login_required
+def reject_adoption_request(request, request_id):
+    """Reject an adoption request (mark as rejected)"""
+    adoption_request = get_object_or_404(
+        AdoptionRequest,
+        pk=request_id,
+        pet__user=request.user,
+    )
+    
+    adoption_request.status = AdoptionRequest.Status.REJECTED
+    adoption_request.save()
+    
+    messages.success(
+        request,
+        f'You rejected the adoption request from '
+        f'{adoption_request.user.username} for '
+        f'{adoption_request.pet.name}.',
+    )
+    
+    return redirect('pet_adoption_requests')
 
 
 def success_stories(request):
