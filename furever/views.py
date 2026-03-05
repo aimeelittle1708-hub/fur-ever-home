@@ -25,7 +25,24 @@ def view_pets(request):
         status=Pet.Status.AVAILABLE,
         authorised=True,
     ).order_by('-featured', '-date_added')
-    return render(request, 'view_pets.html', {'pets': pets})
+
+    # Filter by species if provided
+    species = request.GET.get('species')
+    if species:
+        try:
+            pets = pets.filter(species=int(species))
+        except (ValueError, TypeError):
+            pass
+
+    return render(
+        request,
+        'view_pets.html',
+        {
+            'pets': pets,
+            'species_choices': Pet.Species.choices,
+            'selected_species': species,
+        },
+    )
 
 
 def request_pet_start(request):
