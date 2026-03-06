@@ -24,6 +24,7 @@ Project board: `https://github.com/users/aimeelittle1708-hub/projects/7`
 - [Installation](#installation)
 - [Usage](#usage)
 - [Testing](#testing)
+- [Use of AI](#use-of-ai)  
 - [Future Improvements](#future-improvements)
 - [Contributors](#contributors)
 
@@ -259,6 +260,23 @@ Visit the application at:
 <img width="414" height="387" alt="image" src="https://github.com/user-attachments/assets/794d2700-e452-4c71-a115-190178678450" />
   
 - Automated testing: unit tests were created for models, forms, and views.
+
+---
+## Use of AI 
+
+### AI Tools
+
+AI tools were used to support development in ways aligned with the project goals. Used for Debugging and content generation.
+
+AI Used For:
+
+Drafting example content (pet profiles)
+Debugging Django template syntax issues
+Improving UX messaging and accessibility improvements
+
+### Reflection
+
+AI accelerated development by reducing time spent on debugging repetitive syntax errors and by helping restructure views/models in a maintainable way. We validated AI suggestions by cross-checking Django documentation and testing changes incrementally in local development before committing.
 
 ---
 
